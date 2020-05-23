@@ -1,0 +1,508 @@
+{
+	"securities": {
+		"metadata": {
+			"SECID": {
+				"type": "string",
+				"bytes": 36,
+				"max_size": 0
+			},
+			"BOARDID": {
+				"type": "string",
+				"bytes": 12,
+				"max_size": 0
+			},
+			"SHORTNAME": {
+				"type": "string",
+				"bytes": 30,
+				"max_size": 0
+			},
+			"PREVWAPRICE": {
+				"type": "double"
+			},
+			"YIELDATPREVWAPRICE": {
+				"type": "double"
+			},
+			"COUPONVALUE": {
+				"type": "double"
+			},
+			"NEXTCOUPON": {
+				"type": "date",
+				"bytes": 10,
+				"max_size": 0
+			},
+			"ACCRUEDINT": {
+				"type": "double"
+			},
+			"PREVPRICE": {
+				"type": "double"
+			},
+			"LOTSIZE": {
+				"type": "int32"
+			},
+			"FACEVALUE": {
+				"type": "double"
+			},
+			"BOARDNAME": {
+				"type": "string",
+				"bytes": 381,
+				"max_size": 0
+			},
+			"STATUS": {
+				"type": "string",
+				"bytes": 3,
+				"max_size": 0
+			},
+			"MATDATE": {
+				"type": "date",
+				"bytes": 10,
+				"max_size": 0
+			},
+			"DECIMALS": {
+				"type": "int32"
+			},
+			"COUPONPERIOD": {
+				"type": "int32"
+			},
+			"ISSUESIZE": {
+				"type": "int64"
+			},
+			"PREVLEGALCLOSEPRICE": {
+				"type": "double"
+			},
+			"PREVADMITTEDQUOTE": {
+				"type": "double"
+			},
+			"PREVDATE": {
+				"type": "date",
+				"bytes": 10,
+				"max_size": 0
+			},
+			"SECNAME": {
+				"type": "string",
+				"bytes": 90,
+				"max_size": 0
+			},
+			"REMARKS": {
+				"type": "string",
+				"bytes": 24,
+				"max_size": 0
+			},
+			"MARKETCODE": {
+				"type": "string",
+				"bytes": 12,
+				"max_size": 0
+			},
+			"INSTRID": {
+				"type": "string",
+				"bytes": 12,
+				"max_size": 0
+			},
+			"SECTORID": {
+				"type": "string",
+				"bytes": 12,
+				"max_size": 0
+			},
+			"MINSTEP": {
+				"type": "double"
+			},
+			"FACEUNIT": {
+				"type": "string",
+				"bytes": 12,
+				"max_size": 0
+			},
+			"BUYBACKPRICE": {
+				"type": "double"
+			},
+			"BUYBACKDATE": {
+				"type": "date",
+				"bytes": 10,
+				"max_size": 0
+			},
+			"ISIN": {
+				"type": "string",
+				"bytes": 36,
+				"max_size": 0
+			},
+			"LATNAME": {
+				"type": "string",
+				"bytes": 90,
+				"max_size": 0
+			},
+			"REGNUMBER": {
+				"type": "string",
+				"bytes": 90,
+				"max_size": 0
+			},
+			"CURRENCYID": {
+				"type": "string",
+				"bytes": 12,
+				"max_size": 0
+			},
+			"ISSUESIZEPLACED": {
+				"type": "int64"
+			},
+			"LISTLEVEL": {
+				"type": "int32"
+			},
+			"SECTYPE": {
+				"type": "string",
+				"bytes": 3,
+				"max_size": 0
+			},
+			"COUPONPERCENT": {
+				"type": "double"
+			},
+			"OFFERDATE": {
+				"type": "date",
+				"bytes": 10,
+				"max_size": 0
+			},
+			"SETTLEDATE": {
+				"type": "date",
+				"bytes": 10,
+				"max_size": 0
+			},
+			"LOTVALUE": {
+				"type": "double"
+			}
+		},
+		"columns": [
+			"SECID",
+			"BOARDID",
+			"SHORTNAME",
+			"PREVWAPRICE",
+			"YIELDATPREVWAPRICE",
+			"COUPONVALUE",
+			"NEXTCOUPON",
+			"ACCRUEDINT",
+			"PREVPRICE",
+			"LOTSIZE",
+			"FACEVALUE",
+			"BOARDNAME",
+			"STATUS",
+			"MATDATE",
+			"DECIMALS",
+			"COUPONPERIOD",
+			"ISSUESIZE",
+			"PREVLEGALCLOSEPRICE",
+			"PREVADMITTEDQUOTE",
+			"PREVDATE",
+			"SECNAME",
+			"REMARKS",
+			"MARKETCODE",
+			"INSTRID",
+			"SECTORID",
+			"MINSTEP",
+			"FACEUNIT",
+			"BUYBACKPRICE",
+			"BUYBACKDATE",
+			"ISIN",
+			"LATNAME",
+			"REGNUMBER",
+			"CURRENCYID",
+			"ISSUESIZEPLACED",
+			"LISTLEVEL",
+			"SECTYPE",
+			"COUPONPERCENT",
+			"OFFERDATE",
+			"SETTLEDATE",
+			"LOTVALUE"
+		],
+		"data": [
+			[
+				"RU000A0JS264",
+				"EQDB",
+				"ОткрХОЛ 2",
+				0.01,
+				3126400,
+				359.02,
+				"2020-06-18",
+				350.03,
+				0.01,
+				1,
+				1000,
+				"Основной режим: Облигации Д - безадрес.",
+				"A",
+				"2026-12-10",
+				2,
+				1092,
+				5000000,
+				0.01,
+				0.01,
+				"2020-05-21",
+				"Открытие Холдинг АО обл. 02",
+				null,
+				"FOND",
+				"EIOD",
+				"EQ-N",
+				0.01,
+				"SUR",
+				100,
+				"2020-06-18",
+				"RU000A0JS264",
+				"Otkritie Holding 02",
+				"4-02-14406-A",
+				"SUR",
+				5000000,
+				3,
+				"6",
+				12.15,
+				"2020-06-23",
+				"2020-05-22",
+				1000
+			],
+			[
+				"RU000A0JT3J2",
+				"EQDB",
+				"ОткрХОЛ 3",
+				0.05,
+				7274400,
+				294.06,
+				"2020-06-26",
+				283.73,
+				0.06,
+				1,
+				1000,
+				"Основной режим: Облигации Д - безадрес.",
+				"A",
+				"2027-09-17",
+				2,
+				1001,
+				7000000,
+				0.06,
+				0.06,
+				"2020-05-21",
+				"Открытие Холдинг АО обл. 03",
+				null,
+				"FOND",
+				"EIOD",
+				"EQ-N",
+				0.01,
+				"SUR",
+				100,
+				"2020-06-26",
+				"RU000A0JT3J2",
+				"Otkritie Holding 03",
+				"4-03-14406-A",
+				"SUR",
+				7000000,
+				3,
+				"6",
+				10.77,
+				"2020-07-01",
+				"2020-05-22",
+				1000
+			],
+			[
+				"RU000A0JTEM2",
+				"EQDB",
+				"АгроКомБО1",
+				3.73,
+				38358.64,
+				1,
+				"2020-12-08",
+				0.45,
+				3.68,
+				1,
+				1000,
+				"Основной режим: Облигации Д - безадрес.",
+				"A",
+				"2022-12-08",
+				2,
+				365,
+				1000000,
+				3.68,
+				3.68,
+				"2020-05-21",
+				"АгроКомплекс ООО  БО-01",
+				null,
+				"FOND",
+				"EIOD",
+				"EQ-N",
+				0.01,
+				"SUR",
+				100,
+				"2020-12-08",
+				"RU000A0JTEM2",
+				"AgroKompleks BO-01",
+				"4B02-01-00173-R",
+				"SUR",
+				1000000,
+				3,
+				"8",
+				0.1,
+				"2020-12-14",
+				"2020-05-22",
+				1000
+			],
+			[
+				"RU000A0JTH82",
+				"EQDB",
+				"ОткрХОЛ 4",
+				0.01,
+				3353600,
+				330.09,
+				"2020-06-17",
+				321.48,
+				0.01,
+				1,
+				1000,
+				"Основной режим: Облигации Д - безадрес.",
+				"A",
+				"2027-12-08",
+				2,
+				1001,
+				5000000,
+				0.01,
+				0.01,
+				"2020-05-21",
+				"Открытие Холдинг АО обл. 04",
+				null,
+				"FOND",
+				"EIOD",
+				"EQ-N",
+				0.01,
+				"SUR",
+				100,
+				"2020-06-17",
+				"RU000A0JTH82",
+				"Otkritie Holding 04",
+				"4-04-14406-A",
+				"SUR",
+				5000000,
+				3,
+				"6",
+				12.09,
+				"2020-06-22",
+				"2020-05-22",
+				1000
+			],
+			[
+				"RU000A0JTHF9",
+				"EQDB",
+				"ИФКСОЮЗ2",
+				100,
+				9.77,
+				1,
+				"2020-06-18",
+				0,
+				100,
+				1,
+				1000,
+				"Основной режим: Облигации Д - безадрес.",
+				"A",
+				"2027-12-09",
+				2,
+				364,
+				1442600,
+				100,
+				100,
+				"2020-05-21",
+				"ИФК СОЮЗ ПАО об. сер. 02",
+				"S",
+				"FOND",
+				"EIOD",
+				"EQ-N",
+				0.01,
+				"SUR",
+				null,
+				"0000-00-00",
+				"RU000A0JTHF9",
+				"IFK SOUZ 02",
+				"4-02-80088-N",
+				"SUR",
+				1442600,
+				3,
+				"6",
+				0.1,
+				"2027-12-09",
+				"2020-05-22",
+				1000
+			],
+			[
+				"RU000A0JTX09",
+				"EQDB",
+				"ОткрХОЛ 5",
+				1.43,
+				7916344.32,
+				0.01,
+				"2020-08-04",
+				0,
+				1.25,
+				1,
+				1000,
+				"Основной режим: Облигации Д - безадрес.",
+				"A",
+				"2028-04-25",
+				2,
+				91,
+				5000000,
+				1.26,
+				1.26,
+				"2020-05-21",
+				"Открытие Холдинг АО обл. 05",
+				"MS",
+				"FOND",
+				"EIOD",
+				"EQ-N",
+				0.01,
+				"SUR",
+				null,
+				"0000-00-00",
+				"RU000A0JTX09",
+				"Otkritie Holding 05",
+				"4-05-14406-A",
+				"SUR",
+				5000000,
+				3,
+				"6",
+				0.02,
+				null,
+				"2020-05-22",
+				1000
+			],
+			[
+				"RU000A0JU278",
+				"EQDB",
+				"ИФКСОЮЗ3",
+				99.99,
+				52.17,
+				1,
+				"2020-07-28",
+				0,
+				99.99,
+				1,
+				1000,
+				"Основной режим: Облигации Д - безадрес.",
+				"A",
+				"2028-07-18",
+				2,
+				364,
+				20000000,
+				99.99,
+				99.99,
+				"2020-05-21",
+				"ИФК СОЮЗ ПАО об. сер. 03",
+				"S",
+				"FOND",
+				"EIOD",
+				"EQ-N",
+				0.01,
+				"SUR",
+				null,
+				"0000-00-00",
+				"RU000A0JU278",
+				"IFK SOUZ 03",
+				"4-03-80088-N",
+				"SUR",
+				20000000,
+				3,
+				"6",
+				0.1,
+				"2111-01-01",
+				"2020-05-22",
+				1000
+			]
+		]
+	}
+}
