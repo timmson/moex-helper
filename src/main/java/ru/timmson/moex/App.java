@@ -24,7 +24,7 @@ public class App {
                 //.filter(row -> row.get(0).equals("SU29006RMFS2") && row.get(8) != null)
                 .filter(row -> !row.get(12).equals("N"))
                 .map(App::createBond)
-                //.filter(b -> b.getProfitValue() < 15)
+                .filter(b -> b.getProfitValue() < 15)
                 .sorted(Comparator.comparing(Bond::getProfitValue).reversed())
                 .limit(20)
                 .collect(Collectors.toList());

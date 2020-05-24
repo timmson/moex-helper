@@ -5,6 +5,7 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
@@ -29,13 +30,13 @@ class Bond {
         this.name = name;
         this.secId = secId;
         this.faceValue = faceValue;
-        this.currentValue = (currentValue != 0 ? currentValue/100  : 1)  * faceValue;
+        this.currentValue = (currentValue != 0 ? currentValue / 100 : 1) * faceValue;
         this.couponPeriod = couponPeriod;
         this.couponValue = couponValue;
         this.couponCurrentValue = couponCurrentValue;
         this.maturityDate = maturityDate;
         this.remainingDays = Long.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), maturityDate)).intValue();
-        this.remainCouponsCount = (remainingDays / couponPeriod);
+        this.remainCouponsCount = couponPeriod > 0 ? (remainingDays / couponPeriod) : 0;
         this.remainingTotalCouponValue = remainCouponsCount * couponValue + couponCurrentValue;
         this.profitValue = calculateProfit();
     }
@@ -83,7 +84,7 @@ class Bond {
         }
 
         public BondBuilder currentValue(String currentValue) {
-            this.currentValue = parseFloat(currentValue);
+            this.currentValue = parseFloat(Objects.requireNonNullElse(currentValue, "0"));
             return this;
         }
 
