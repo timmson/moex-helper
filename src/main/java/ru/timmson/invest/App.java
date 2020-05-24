@@ -1,4 +1,4 @@
-package ru.timmson.moex;
+package ru.timmson.invest;
 
 import ru.tinkoff.invest.openapi.okhttp.OkHttpOpenApiFactory;
 

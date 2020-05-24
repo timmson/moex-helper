@@ -1,4 +1,4 @@
-package ru.timmson.moex;
+package ru.timmson.invest;
 
 import lombok.Getter;
 import lombok.ToString;
