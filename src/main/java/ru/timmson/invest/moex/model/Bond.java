@@ -28,13 +28,13 @@ public class Bond {
         this.name = name;
         this.secId = secId;
         this.faceValue = faceValue;
-        this.currentValue = (currentValue != 0 ? currentValue / 100 : 1) * faceValue;
+        this.currentValue = currentValue;
         this.couponPeriod = couponPeriod;
         this.couponValue = couponValue;
         this.couponCurrentValue = couponCurrentValue;
         this.maturityDate = maturityDate;
         this.remainingDays = Long.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), maturityDate)).intValue();
-        this.remainCouponsCount = couponPeriod > 0 ? (remainingDays / couponPeriod) : 0;
+        this.remainCouponsCount = couponPeriod > 0 ? (remainingDays / couponPeriod) + 1 : 0;
     }
 
     public static BondBuilder builder() {
@@ -96,6 +96,7 @@ public class Bond {
         }
 
         public Bond build() {
+            this.currentValue = (currentValue != 0 ? currentValue / 100 : 1) * faceValue;
             return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, maturityDate);
         }
 

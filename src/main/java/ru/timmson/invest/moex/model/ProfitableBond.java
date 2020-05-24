@@ -1,11 +1,13 @@
 package ru.timmson.invest.moex.model;
 
 import lombok.Getter;
-import lombok.ToString;
+import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Level;
+
+@Log
 @Getter
-@ToString
 public class ProfitableBond extends Bond implements Comparable<ProfitableBond> {
 
     protected final float remainingTotalCouponValue;
@@ -23,15 +25,19 @@ public class ProfitableBond extends Bond implements Comparable<ProfitableBond> {
 
     protected float calculateProfit() {
         try {
-            return (faceValue - currentValue + remainingTotalCouponValue) * 365 * 100 / (currentValue * remainingDays);
+            return (this.faceValue - this.currentValue + this.remainingTotalCouponValue) * 365 * 100 / (this.currentValue * this.remainingDays);
         } catch (Exception e) {
-            System.out.println(secId);
-            return 0;
+            log.log(Level.SEVERE, this.secId, e);
         }
+        return 0;
     }
 
     @Override
     public int compareTo(@NotNull ProfitableBond o) {
         return Float.compare(profitValue, o.profitValue);
+    }
+
+    public String toString() {
+        return "ProfitableBond(" + super.toString() + ", profitValue=" + this.getProfitValue() + ")";
     }
 }

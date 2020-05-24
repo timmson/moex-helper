@@ -48,6 +48,16 @@ public abstract class AbstractMoexClient implements MoexClient {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<Bond> getBond(String secId) {
+        return callGetBonds()
+                .getData()
+                .parallelStream()
+                .filter(row -> row.get(0).equals(secId))
+                .map(this::createBond)
+                .findFirst();
+    }
+
     private Bond createBond(List<String> row) {
         return Bond.builder()
                 .name(row.get(2))
