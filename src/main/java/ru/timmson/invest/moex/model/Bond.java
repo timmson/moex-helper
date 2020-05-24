@@ -19,22 +19,16 @@ public class Bond {
     protected final float currentValue;
     protected final int couponPeriod;
     protected final float couponValue;
-    protected final float couponCurrentValue;
     protected final LocalDate maturityDate;
-    protected final int remainingDays;
-    protected final int remainCouponsCount;
 
-    Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, LocalDate maturityDate) {
+    Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, LocalDate maturityDate) {
         this.name = name;
         this.secId = secId;
         this.faceValue = faceValue;
         this.currentValue = currentValue;
         this.couponPeriod = couponPeriod;
         this.couponValue = couponValue;
-        this.couponCurrentValue = couponCurrentValue;
         this.maturityDate = maturityDate;
-        this.remainingDays = Long.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), maturityDate)).intValue();
-        this.remainCouponsCount = couponPeriod > 0 ? (remainingDays / couponPeriod) + 1 : 0;
     }
 
     public static BondBuilder builder() {
@@ -91,13 +85,19 @@ public class Bond {
         }
 
         public BondBuilder maturityDate(String maturityDate) {
-            this.maturityDate = maturityDate != null && !maturityDate.equals("0000-00-00") ? LocalDate.parse(maturityDate) : LocalDate.now().plusYears(3);
+            final var defaultMaturityDate = LocalDate.now().plusYears(5);
+            if (maturityDate == null || maturityDate.equals("0000-00-00")) {
+                this.maturityDate = defaultMaturityDate;
+            } else {
+                final var maturityDateCandidate = LocalDate.parse(maturityDate);
+                this.maturityDate = ChronoUnit.YEARS.between(LocalDate.now(), maturityDateCandidate) > 5 ? defaultMaturityDate : maturityDateCandidate;
+            }
             return this;
         }
 
         public Bond build() {
-            this.currentValue = (currentValue != 0 ? currentValue / 100 : 1) * faceValue;
-            return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, maturityDate);
+            this.currentValue = this.couponCurrentValue + (currentValue != 0 ? currentValue / 100 : 1) * faceValue;
+            return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, maturityDate);
         }
 
     }

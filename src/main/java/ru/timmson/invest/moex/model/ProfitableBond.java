@@ -4,18 +4,28 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 
 @Log
 @Getter
 public class ProfitableBond extends Bond implements Comparable<ProfitableBond> {
 
+    protected final int remainingDays;
+    protected final int remainCouponsCount;
     protected final float remainingTotalCouponValue;
     protected final float profitValue;
 
     public ProfitableBond(Bond b) {
-        super(b.name, b.secId, b.faceValue, b.currentValue, b.couponPeriod, b.couponValue, b.couponCurrentValue, b.maturityDate);
-        this.remainingTotalCouponValue = remainCouponsCount * couponValue + couponCurrentValue;
+        this(b, LocalDate.now());
+    }
+
+    public ProfitableBond(Bond b, LocalDate onDate) {
+        super(b.name, b.secId, b.faceValue, b.currentValue, b.couponPeriod, b.couponValue, b.maturityDate);
+        this.remainingDays = Long.valueOf(ChronoUnit.DAYS.between(onDate, maturityDate)).intValue();
+        this.remainCouponsCount = couponPeriod > 0 ? (remainingDays / couponPeriod) + 1 : 0;
+        this.remainingTotalCouponValue = remainCouponsCount * couponValue;
         this.profitValue = calculateProfit();
     }
 
@@ -25,7 +35,7 @@ public class ProfitableBond extends Bond implements Comparable<ProfitableBond> {
 
     protected float calculateProfit() {
         try {
-            return (this.faceValue - this.currentValue + this.remainingTotalCouponValue) * 365 * 100 / (this.currentValue * this.remainingDays);
+            return ((this.faceValue + this.remainingTotalCouponValue - this.currentValue) / this.currentValue) * (365 * 100.0f / this.remainingDays);
         } catch (Exception e) {
             log.log(Level.SEVERE, this.secId, e);
         }
