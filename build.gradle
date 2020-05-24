@@ -11,7 +11,9 @@ repositories {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation "org.projectlombok:lombok:1.18.12"
+    implementation 'org.projectlombok:lombok:1.18.12'
+    implementation 'ru.tinkoff.invest:openapi-java-sdk-java8:0.4.1'
+
 
     annotationProcessor "org.projectlombok:lombok:1.18.12"
 

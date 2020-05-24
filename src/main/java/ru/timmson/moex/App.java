@@ -1,13 +1,12 @@
 package ru.timmson.moex;
 
-import com.google.gson.GsonBuilder;
-import ru.timmson.moex.dto.Root;
+import ru.tinkoff.invest.openapi.okhttp.OkHttpOpenApiFactory;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 public class App {
 
@@ -17,8 +16,12 @@ public class App {
      * wget -N https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json?iss.meta=off
      */
 
-    public static void main(String[] args) throws FileNotFoundException {
-        final var securities = new GsonBuilder().create().fromJson(new FileReader("securities.json"), Root.class).getSecurities();
+    public static void main(String[] args) throws FileNotFoundException, ExecutionException, InterruptedException {
+        final var token = "XXX";
+        final var client = new OkHttpOpenApiFactory(token, Logger.getLogger("bonds")).createOpenApiClient(Executors.newSingleThreadExecutor());
+        final var marketBonds = client.getMarketContext().getMarketBonds().get();
+        System.out.println("marketBonds = " + marketBonds);
+/*        final var securities = new GsonBuilder().create().fromJson(new FileReader("securities.json"), Root.class).getSecurities();
         final var sec1 = securities.getData()
                 .parallelStream()
                 //.filter(row -> row.get(0).equals("SU29006RMFS2") && row.get(8) != null)
@@ -28,7 +31,7 @@ public class App {
                 .sorted(Comparator.comparing(Bond::getProfitValue).reversed())
                 .limit(20)
                 .collect(Collectors.toList());
-        sec1.forEach(System.out::println);
+        sec1.forEach(System.out::println);*/
     }
 
     private static Bond createBond(List<String> row) {
