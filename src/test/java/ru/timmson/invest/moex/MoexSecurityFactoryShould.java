@@ -1,7 +1,7 @@
 package ru.timmson.invest.moex;
 
 import org.junit.jupiter.api.Test;
-import ru.timmson.invest.moex.dto.MoexSecurityFactory;
+import ru.timmson.invest.moex.dto.MoexEntityFactory;
 import ru.timmson.invest.moex.dto.MoexSecurityResponse;
 
 import java.io.FileNotFoundException;
@@ -24,15 +24,15 @@ public class MoexSecurityFactoryShould {
 
         final var source = sb.toString();
 
-        final Optional<MoexSecurityResponse> result = MoexSecurityFactory.createMoexSecurityResponse(source);
+        final Optional<MoexSecurityResponse> result = MoexEntityFactory.createMoexSecurityResponse(source);
 
         assertEquals(7, result.orElseThrow().getSecurities().getData().size());
     }
 
     @Test
-    void NotCreateMoexSecuritiesFromInvalidJson() throws FileNotFoundException {
+    void NotCreateMoexSecuritiesFromInvalidJson() {
         final var source = "---";
-        final Optional<MoexSecurityResponse> result = MoexSecurityFactory.createMoexSecurityResponse(source);
+        final Optional<MoexSecurityResponse> result = MoexEntityFactory.createMoexSecurityResponse(source);
 
         assertTrue(result.isEmpty());
     }

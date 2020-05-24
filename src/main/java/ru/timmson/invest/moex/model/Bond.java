@@ -1,4 +1,4 @@
-package ru.timmson.invest;
+package ru.timmson.invest.moex.model;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -12,19 +12,17 @@ import static java.lang.Integer.parseInt;
 
 @Getter
 @ToString
-class Bond {
-    private final String name;
-    private final String secId;
-    private final float faceValue;
-    private final float currentValue;
-    private final int couponPeriod;
-    private final float couponValue;
-    private final float couponCurrentValue;
-    private final LocalDate maturityDate;
-    private final int remainingDays;
-    private final int remainCouponsCount;
-    private final float remainingTotalCouponValue;
-    private final float profitValue;
+public class Bond {
+    protected final String name;
+    protected final String secId;
+    protected final float faceValue;
+    protected final float currentValue;
+    protected final int couponPeriod;
+    protected final float couponValue;
+    protected final float couponCurrentValue;
+    protected final LocalDate maturityDate;
+    protected final int remainingDays;
+    protected final int remainCouponsCount;
 
     Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, LocalDate maturityDate) {
         this.name = name;
@@ -37,21 +35,10 @@ class Bond {
         this.maturityDate = maturityDate;
         this.remainingDays = Long.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), maturityDate)).intValue();
         this.remainCouponsCount = couponPeriod > 0 ? (remainingDays / couponPeriod) : 0;
-        this.remainingTotalCouponValue = remainCouponsCount * couponValue + couponCurrentValue;
-        this.profitValue = calculateProfit();
     }
 
     public static BondBuilder builder() {
         return new BondBuilder();
-    }
-
-    protected float calculateProfit() {
-        try {
-            return (faceValue - currentValue + remainingTotalCouponValue) * 365 * 100 / (currentValue * remainingDays);
-        } catch (Exception e) {
-            System.out.println(secId);
-            return 0;
-        }
     }
 
     @ToString

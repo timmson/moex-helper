@@ -14,16 +14,16 @@ class MoexApiFactoryShould {
 
     @Test
     void returnApiForFiles() {
-        final var localMoexApi = MoexApiFactory.createLocalMoexApi("some file");
+        final var localMoexApi = MoexApiFactory.createLocalClient("some file");
 
-        assertEquals(LocalMoexApi.class, localMoexApi.getClass());
+        assertEquals(LocalMoexClient.class, localMoexApi.getClass());
     }
 
 
     @Test
     void returnApiForURLs() throws MalformedURLException {
-        final var localRemoteApi = MoexApiFactory.createRemoteMoexApi("http://exmaple.org");
+        final var localRemoteApi = MoexApiFactory.createRemoteClient("http://exmaple.org");
 
-        assertEquals(RemoteMoexApi.class, localRemoteApi.getClass());
+        assertEquals(RemoteMoexClient.class, localRemoteApi.getClass());
     }
 }
