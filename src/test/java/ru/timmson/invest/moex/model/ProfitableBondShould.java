@@ -23,6 +23,6 @@ class ProfitableBondShould {
 
         final var result = profitableBond.getProfitValue();
 
-        assertEquals(6.738815f, result);
+        assertEquals(6.8462815f, result);
     }
 }

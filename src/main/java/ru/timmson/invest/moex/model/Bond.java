@@ -19,15 +19,17 @@ public class Bond {
     protected final float currentValue;
     protected final int couponPeriod;
     protected final float couponValue;
+    protected final float totalValue;
     protected final LocalDate maturityDate;
 
-    Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, LocalDate maturityDate) {
+    Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, float totalValue, LocalDate maturityDate) {
         this.name = name;
         this.secId = secId;
         this.faceValue = faceValue;
         this.currentValue = currentValue;
         this.couponPeriod = couponPeriod;
         this.couponValue = couponValue;
+        this.totalValue = totalValue;
         this.maturityDate = maturityDate;
     }
 
@@ -44,6 +46,7 @@ public class Bond {
         private int couponPeriod;
         private float couponValue;
         private float couponCurrentValue;
+        private float totalValue;
         private LocalDate maturityDate;
 
         BondBuilder() {
@@ -65,7 +68,8 @@ public class Bond {
         }
 
         public BondBuilder currentValue(String currentValue) {
-            this.currentValue = parseFloat(Objects.requireNonNullElse(currentValue, "0"));
+            final var currentValueTmp = parseFloat(Objects.requireNonNullElse(currentValue, "0"));
+            this.currentValue = (currentValueTmp != 0 ? currentValueTmp / 100 : 1) * faceValue;
             return this;
         }
 
@@ -96,8 +100,8 @@ public class Bond {
         }
 
         public Bond build() {
-            this.currentValue = this.couponCurrentValue + (currentValue != 0 ? currentValue / 100 : 1) * faceValue;
-            return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, maturityDate);
+            this.totalValue = this.couponCurrentValue + this.currentValue;
+            return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, totalValue, maturityDate);
         }
 
     }

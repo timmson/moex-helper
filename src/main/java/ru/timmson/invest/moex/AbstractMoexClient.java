@@ -5,6 +5,7 @@ import ru.timmson.invest.moex.dto.MoexSecurity;
 import ru.timmson.invest.moex.dto.MoexSecurityResponse;
 import ru.timmson.invest.moex.model.Bond;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -24,26 +25,26 @@ public abstract class AbstractMoexClient implements MoexClient {
         return Optional.of(source.toString());
     }
 
-    protected MoexSecurity callGetBonds() {
-        final var moexSecurity = new MoexSecurity(emptyList(), emptyList());
+    protected List<List<String>> callGetBonds() {
 
         final var source = getSource();
 
-        if (source.isPresent()) {
-            return MoexEntityFactory
-                    .createMoexSecurityResponse(source.get())
-                    .orElse(new MoexSecurityResponse(moexSecurity))
-                    .getSecurities();
-        }
+        return source.map(
+                s -> MoexEntityFactory.createMoexSecurityResponse(s)
+                        .orElse(new MoexSecurityResponse(new MoexSecurity(emptyList(), emptyList())))
+                        .getSecurities()
+                        .getData()
+                        .parallelStream()
+                        .filter(row -> !row.get(12).equals("N") && row.get(8) != null)
+                        .collect(Collectors.toList())
+        ).orElse(Collections.emptyList());
 
-        return moexSecurity;
     }
 
     @Override
     public List<Bond> getBonds() {
         return callGetBonds()
-                .getData()
-                .parallelStream().filter(row -> !row.get(12).equals("N"))
+                .parallelStream()
                 .map(this::createBond)
                 .collect(Collectors.toList());
     }
@@ -51,7 +52,6 @@ public abstract class AbstractMoexClient implements MoexClient {
     @Override
     public Optional<Bond> getBond(String secId) {
         return callGetBonds()
-                .getData()
                 .parallelStream()
                 .filter(row -> row.get(0).equals(secId))
                 .map(this::createBond)
