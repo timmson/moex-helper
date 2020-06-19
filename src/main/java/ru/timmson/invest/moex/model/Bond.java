@@ -19,16 +19,18 @@ public class Bond {
     protected final float currentValue;
     protected final int couponPeriod;
     protected final float couponValue;
+    protected final float couponCurrentValue;
     protected final float totalValue;
     protected final LocalDate maturityDate;
 
-    Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, float totalValue, LocalDate maturityDate) {
+    Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, float totalValue, LocalDate maturityDate) {
         this.name = name;
         this.secId = secId;
         this.faceValue = faceValue;
         this.currentValue = currentValue;
         this.couponPeriod = couponPeriod;
         this.couponValue = couponValue;
+        this.couponCurrentValue = couponCurrentValue;
         this.totalValue = totalValue;
         this.maturityDate = maturityDate;
     }
@@ -101,7 +103,7 @@ public class Bond {
 
         public Bond build() {
             this.totalValue = this.couponCurrentValue + this.currentValue;
-            return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, totalValue, maturityDate);
+            return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, totalValue, maturityDate);
         }
 
     }
