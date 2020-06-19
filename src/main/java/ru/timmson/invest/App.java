@@ -17,13 +17,12 @@ public class App {
     private static final String TINKOFF_TOKEN = "XXX";
 
     public static void main(String[] args) throws Exception {
-        listBond("XS0524610812");
-
-        //listProfitable();
+        //listBond("XS0524610812");
+        listProfitable();
     }
 
     protected static void listBond(String secId) throws Exception {
-        MoexApiFactory.createRemoteClient(MOEX_BONDS).getBond(secId).ifPresent(System.out::println);
+        MoexApiFactory.createRemoteClient(MOEX_BONDS).getBond(secId).map(ProfitableBond::new).ifPresent(System.out::println);
     }
 
     protected static void listProfitable() throws MalformedURLException, InterruptedException, ExecutionException, TimeoutException {
@@ -38,16 +37,14 @@ public class App {
                 .parallelStream()
                 .map(b -> b.isin).collect(Collectors.toSet());
 
-        System.out.println(tinkoffBondNames);
-
         final var viableBonds = allBonds.parallelStream()
                 .filter(b -> tinkoffBondNames.contains(b.getSecId()))
                 .map(ProfitableBond::new)
-                .filter(b -> b.getProfitValue() > 5)
+                .filter(b -> b.getProfitValue() > 3 && b.getCurrency().equals("USD"))
                 .sorted(Collections.reverseOrder())
                 .collect(Collectors.toList());
 
-        viableBonds.forEach(b -> System.out.println("https://www.tinkoff.ru/invest/bonds/" + b.getSecId() + "/ " + b.getProfitValue()));
+        viableBonds.forEach(b -> System.out.println("https://www.tinkoff.ru/invest/bonds/" + b.getSecId() + "/ " + b.getName() + " " + b.getProfitValue()));
 
         System.out.println("Done");
     }

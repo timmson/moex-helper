@@ -16,12 +16,13 @@ class BondShould {
                 .couponPeriod("91")
                 .couponValue("19.32")
                 .couponCurrentValue("8.0")
+                .feeValue("0.003")
                 .maturityDate(LocalDate.now().plusYears(5).toString())
                 .build();
 
         final var result = bond.getTotalValue();
 
-        assertEquals(1051.3f, result);
+        assertEquals(1054.4299f, result);
     }
 
 }

@@ -22,7 +22,7 @@ public class ProfitableBond extends Bond implements Comparable<ProfitableBond> {
     }
 
     public ProfitableBond(Bond b, LocalDate onDate) {
-        super(b.name, b.secId, b.faceValue, b.currentValue, b.couponPeriod, b.couponValue, b.couponCurrentValue, b.totalValue, b.maturityDate);
+        super(b.name, b.secId, b.currency, b.faceValue, b.currentValue, b.couponPeriod, b.couponValue, b.couponCurrentValue, b.totalValue, b.maturityDate);
         this.remainingDays = Long.valueOf(ChronoUnit.DAYS.between(onDate, maturityDate)).intValue();
         this.remainCouponsCount = couponPeriod > 0 ? (remainingDays / couponPeriod) + 1 : 0;
         this.remainingTotalCouponValue = remainCouponsCount * couponValue;
@@ -35,7 +35,7 @@ public class ProfitableBond extends Bond implements Comparable<ProfitableBond> {
 
     protected float calculateProfit() {
         try {
-            return ((this.faceValue + this.remainingTotalCouponValue - this.currentValue) / this.currentValue) * (365 * 100.0f / this.remainingDays);
+            return ((this.faceValue + this.remainingTotalCouponValue - this.totalValue) / this.totalValue) * 100f * (365f / this.remainingDays);
         } catch (Exception e) {
             log.log(Level.SEVERE, this.secId, e);
         }

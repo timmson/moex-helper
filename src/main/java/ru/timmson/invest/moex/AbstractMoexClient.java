@@ -62,11 +62,13 @@ public abstract class AbstractMoexClient implements MoexClient {
         return Bond.builder()
                 .name(row.get(2))
                 .secId(row.get(0))
+                .currency(row.get(26))
                 .faceValue(row.get(10))
                 .currentValue(row.get(8))
                 .couponValue(row.get(5))
                 .couponPeriod(row.get(15))
                 .couponCurrentValue(row.get(7))
+                .feeValue("0.003")
                 .maturityDate(row.get(13))
                 .build();
     }

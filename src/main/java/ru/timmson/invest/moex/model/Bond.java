@@ -15,6 +15,7 @@ import static java.lang.Integer.parseInt;
 public class Bond {
     protected final String name;
     protected final String secId;
+    protected final String currency;
     protected final float faceValue;
     protected final float currentValue;
     protected final int couponPeriod;
@@ -23,9 +24,10 @@ public class Bond {
     protected final float totalValue;
     protected final LocalDate maturityDate;
 
-    Bond(String name, String secId, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, float totalValue, LocalDate maturityDate) {
+    Bond(String name, String secId, String currency, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, float totalValue, LocalDate maturityDate) {
         this.name = name;
         this.secId = secId;
+        this.currency = currency;
         this.faceValue = faceValue;
         this.currentValue = currentValue;
         this.couponPeriod = couponPeriod;
@@ -43,12 +45,14 @@ public class Bond {
     public static class BondBuilder {
         private String name;
         private String secId;
+        private String currency;
         private float faceValue;
         private float currentValue;
         private int couponPeriod;
         private float couponValue;
         private float couponCurrentValue;
         private float totalValue;
+        private float feeValue;
         private LocalDate maturityDate;
 
         BondBuilder() {
@@ -61,6 +65,11 @@ public class Bond {
 
         public BondBuilder secId(String secId) {
             this.secId = secId;
+            return this;
+        }
+
+        public BondBuilder currency(String currency) {
+            this.currency = currency;
             return this;
         }
 
@@ -90,6 +99,12 @@ public class Bond {
             return this;
         }
 
+        public BondBuilder feeValue(String feeValue) {
+            this.feeValue = parseFloat(feeValue);
+            return this;
+        }
+
+
         public BondBuilder maturityDate(String maturityDate) {
             final var defaultMaturityDate = LocalDate.now().plusYears(5);
             if (maturityDate == null || maturityDate.equals("0000-00-00")) {
@@ -102,8 +117,8 @@ public class Bond {
         }
 
         public Bond build() {
-            this.totalValue = this.couponCurrentValue + this.currentValue;
-            return new Bond(name, secId, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, totalValue, maturityDate);
+            this.totalValue = this.couponCurrentValue + this.currentValue * (1 + this.feeValue);
+            return new Bond(name, secId, currency, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, totalValue, maturityDate);
         }
 
     }
