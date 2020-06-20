@@ -12,6 +12,6 @@ class LocalMoexApiShould {
 
         final var result = new LocalMoexClient(fileName).getBonds();
 
-        assertEquals(7, result.size());
+        assertEquals(2, result.size());
     }
 }

@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class MoexSecurityResponse {
+
     private final MoexSecurity securities;
 }

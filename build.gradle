@@ -14,11 +14,12 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.12'
     implementation 'ru.tinkoff.invest:openapi-java-sdk-java8:0.4.1'
 
-
     annotationProcessor "org.projectlombok:lombok:1.18.12"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+
 }
 
 test {

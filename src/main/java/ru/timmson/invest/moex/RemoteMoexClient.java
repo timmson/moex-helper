@@ -2,7 +2,6 @@ package ru.timmson.invest.moex;
 
 import lombok.extern.java.Log;
 
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
@@ -19,9 +18,7 @@ public class RemoteMoexClient extends AbstractMoexClient {
     }
 
     protected Optional<String> getSource() {
-        try (final var is = url.openStream();
-             final var isr = new InputStreamReader(is);
-             final var scanner = new Scanner(isr)) {
+        try (final var scanner = new Scanner(url.openStream())) {
 
             return readSource(scanner);
 

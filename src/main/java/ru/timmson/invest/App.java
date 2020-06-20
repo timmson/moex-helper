@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 public class App {
 
-    private static final String MOEX_BONDS = "https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json?iss.meta=off";
+    private static final String MOEX_BONDS = "https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json?iss.meta=off&iss.only=securities";
     private static final String TINKOFF_TOKEN = "XXX";
 
     public static void main(String[] args) throws Exception {
-        //listBond("XS0524610812");
-        listProfitable();
+        listBond("XS0524610812");
+        //listProfitable();
     }
 
     protected static void listBond(String secId) throws Exception {
@@ -40,7 +40,7 @@ public class App {
         final var viableBonds = allBonds.parallelStream()
                 .filter(b -> tinkoffBondNames.contains(b.getSecId()))
                 .map(ProfitableBond::new)
-                .filter(b -> b.getProfitValue() > 3 && b.getCurrency().equals("USD"))
+                .filter(b -> b.getProfitValue() > 5)
                 .sorted(Collections.reverseOrder())
                 .collect(Collectors.toList());
 

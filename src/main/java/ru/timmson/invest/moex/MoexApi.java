@@ -1,9 +1,10 @@
 package ru.timmson.invest.moex;
 
-import ru.timmson.invest.moex.dto.MoexSecurity;
+import java.util.List;
+import java.util.Map;
 
 public interface MoexApi {
 
-    MoexSecurity getBonds();
+    List<Map<String, String>> getBonds();
 
 }

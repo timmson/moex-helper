@@ -1,18 +1,13 @@
 package ru.timmson.invest.moex;
 
+import lombok.extern.java.Log;
 import ru.timmson.invest.moex.dto.MoexEntityFactory;
-import ru.timmson.invest.moex.dto.MoexSecurity;
-import ru.timmson.invest.moex.dto.MoexSecurityResponse;
 import ru.timmson.invest.moex.model.Bond;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.emptyList;
-
+@Log
 public abstract class AbstractMoexClient implements MoexClient {
 
     protected abstract Optional<String> getSource();
@@ -25,17 +20,14 @@ public abstract class AbstractMoexClient implements MoexClient {
         return Optional.of(source.toString());
     }
 
-    protected List<List<String>> callGetBonds() {
+    protected List<Map<String, String>> callGetBonds() {
 
         final var source = getSource();
 
         return source.map(
                 s -> MoexEntityFactory.createMoexSecurityResponse(s)
-                        .orElse(new MoexSecurityResponse(new MoexSecurity(emptyList(), emptyList())))
-                        .getSecurities()
-                        .getData()
                         .parallelStream()
-                        .filter(row -> !row.get(12).equals("N") && row.get(8) != null)
+                        .filter(sec -> !sec.get("STATUS").equals("N") && !sec.get("PREVPRICE").equals(""))
                         .collect(Collectors.toList())
         ).orElse(Collections.emptyList());
 
@@ -53,23 +45,23 @@ public abstract class AbstractMoexClient implements MoexClient {
     public Optional<Bond> getBond(String secId) {
         return callGetBonds()
                 .parallelStream()
-                .filter(row -> row.get(0).equals(secId))
+                .filter(sec -> sec.get("SECID").equals(secId))
                 .map(this::createBond)
                 .findFirst();
     }
 
-    private Bond createBond(List<String> row) {
+    private Bond createBond(Map<String, String> security) {
         return Bond.builder()
-                .name(row.get(2))
-                .secId(row.get(0))
-                .currency(row.get(26))
-                .faceValue(row.get(10))
-                .currentValue(row.get(8))
-                .couponValue(row.get(5))
-                .couponPeriod(row.get(15))
-                .couponCurrentValue(row.get(7))
+                .name(security.get("SHORTNAME"))
+                .secId(security.get("SECID"))
+                .currency(security.get("FACUNIT"))
+                .faceValue(security.get("FACEVALUE"))
+                .currentValue(security.get("PREVPRICE"))
+                .couponValue(security.get("COUPONVALUE"))
+                .couponPeriod(security.get("COUPONPERIOD"))
+                .couponCurrentValue(security.get("ACCRUEDINT"))
                 .feeValue("0.003")
-                .maturityDate(row.get(13))
+                .maturityDate(security.get("MATDATE"))
                 .build();
     }
 

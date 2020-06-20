@@ -2,7 +2,7 @@ package ru.timmson.invest.moex;
 
 import lombok.extern.java.Log;
 
-import java.io.FileReader;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -18,8 +18,7 @@ class LocalMoexClient extends AbstractMoexClient {
 
     @Override
     protected Optional<String> getSource() {
-        try (final var fileReader = new FileReader(this.fileName);
-             final var scanner = new Scanner(fileReader)) {
+        try (final var scanner = new Scanner(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(this.fileName)))) {
 
             return readSource(scanner);
 
