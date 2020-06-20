@@ -15,6 +15,7 @@ import static java.lang.Integer.parseInt;
 public class Bond {
     protected final String name;
     protected final String secId;
+    protected final String sector;
     protected final String currency;
     protected final float faceValue;
     protected final float currentValue;
@@ -24,9 +25,10 @@ public class Bond {
     protected final float totalValue;
     protected final LocalDate maturityDate;
 
-    Bond(String name, String secId, String currency, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, float totalValue, LocalDate maturityDate) {
+    Bond(String name, String secId, String sector, String currency, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, float totalValue, LocalDate maturityDate) {
         this.name = name;
         this.secId = secId;
+        this.sector = sector;
         this.currency = currency;
         this.faceValue = faceValue;
         this.currentValue = currentValue;
@@ -45,6 +47,7 @@ public class Bond {
     public static class BondBuilder {
         private String name;
         private String secId;
+        private String sector;
         private String currency;
         private float faceValue;
         private float currentValue;
@@ -65,6 +68,11 @@ public class Bond {
 
         public BondBuilder secId(String secId) {
             this.secId = secId;
+            return this;
+        }
+
+        public BondBuilder sector(String sector) {
+            this.sector = sector;
             return this;
         }
 
@@ -118,8 +126,7 @@ public class Bond {
 
         public Bond build() {
             this.totalValue = this.couponCurrentValue + this.currentValue * (1 + this.feeValue);
-            return new Bond(name, secId, currency, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, totalValue, maturityDate);
+            return new Bond(name, secId, sector, currency, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, totalValue, maturityDate);
         }
-
     }
 }

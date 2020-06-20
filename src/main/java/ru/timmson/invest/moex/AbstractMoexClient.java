@@ -54,6 +54,7 @@ public abstract class AbstractMoexClient implements MoexClient {
         return Bond.builder()
                 .name(security.get("SHORTNAME"))
                 .secId(security.get("SECID"))
+                .sector(security.get("INSTRID"))
                 .currency(security.get("FACUNIT"))
                 .faceValue(security.get("FACEVALUE"))
                 .currentValue(security.get("PREVPRICE"))
