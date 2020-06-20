@@ -3,10 +3,7 @@ package ru.timmson.invest.moex.dto;
 import com.google.gson.GsonBuilder;
 import lombok.extern.java.Log;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -42,7 +39,7 @@ public class MoexEntityFactory {
         public Map<String, String> rowToMap(List<String> row) {
             final var map = new HashMap<String, String>();
             for (var i = 0; i < row.size(); i++) {
-                map.put(columns.get(i), row.get(i));
+                map.put(columns.get(i), Optional.ofNullable(row.get(i)).orElse(""));
             }
             return Collections.unmodifiableMap(map);
         }
