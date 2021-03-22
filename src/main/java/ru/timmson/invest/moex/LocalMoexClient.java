@@ -12,7 +12,8 @@ class LocalMoexClient extends AbstractMoexClient {
 
     private final String fileName;
 
-    public LocalMoexClient(String fileName) {
+    public LocalMoexClient(String fileName, String feeValue, String taxValue) {
+        super(feeValue, taxValue);
         this.fileName = fileName;
     }
 

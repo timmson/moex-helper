@@ -29,10 +29,6 @@ public class ProfitableBond extends Bond implements Comparable<ProfitableBond> {
         this.profitValue = calculateProfit();
     }
 
-    public static ProfitableBond create(Bond b) {
-        return new ProfitableBond(b);
-    }
-
     protected float calculateProfit() {
         try {
             return ((this.faceValue + this.remainingTotalCouponValue - this.totalValue) / this.totalValue) * 100f * (365f / this.remainingDays);

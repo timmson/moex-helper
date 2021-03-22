@@ -13,7 +13,8 @@ public class RemoteMoexClient extends AbstractMoexClient {
 
     private final URL url;
 
-    public RemoteMoexClient(String url) throws MalformedURLException {
+    public RemoteMoexClient(String url, String feeValue, String taxValue) throws MalformedURLException {
+        super(feeValue, taxValue);
         this.url = new URL(url);
     }
 

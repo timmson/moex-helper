@@ -5,7 +5,6 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
@@ -25,7 +24,17 @@ public class Bond {
     protected final float totalValue;
     protected final LocalDate maturityDate;
 
-    Bond(String name, String secId, String sector, String currency, float faceValue, float currentValue, int couponPeriod, float couponValue, float couponCurrentValue, float totalValue, LocalDate maturityDate) {
+    Bond(String name,
+         String secId,
+         String sector,
+         String currency,
+         float faceValue,
+         float currentValue,
+         int couponPeriod,
+         float couponValue,
+         float couponCurrentValue,
+         float totalValue,
+         LocalDate maturityDate) {
         this.name = name;
         this.secId = secId;
         this.sector = sector;
@@ -56,6 +65,7 @@ public class Bond {
         private float couponCurrentValue;
         private float totalValue;
         private float feeValue;
+        private float taxValue;
         private LocalDate maturityDate;
 
         BondBuilder() {
@@ -86,8 +96,13 @@ public class Bond {
             return this;
         }
 
-        public BondBuilder currentValue(String currentValue) {
-            final var currentValueTmp = parseFloat(Objects.requireNonNullElse(currentValue, "0"));
+        public BondBuilder currentValue(String lastValue, String currentValue) {
+            var currentValueTmp = 100f;
+            if (lastValue != null && !lastValue.isBlank()) {
+                currentValueTmp = parseFloat(lastValue);
+            } else if (currentValue != null && !currentValue.isBlank()) {
+                currentValueTmp = parseFloat(currentValue);
+            }
             this.currentValue = (currentValueTmp != 0 ? currentValueTmp / 100 : 1) * faceValue;
             return this;
         }
@@ -112,6 +127,10 @@ public class Bond {
             return this;
         }
 
+        public BondBuilder taxValue(String feeValue) {
+            this.taxValue = parseFloat(feeValue);
+            return this;
+        }
 
         public BondBuilder maturityDate(String maturityDate) {
             final var defaultMaturityDate = LocalDate.now().plusYears(5);
@@ -124,9 +143,11 @@ public class Bond {
             return this;
         }
 
+        //51,178045
+        //1.1571001
         public Bond build() {
             this.totalValue = this.couponCurrentValue + this.currentValue * (1 + this.feeValue);
-            return new Bond(name, secId, sector, currency, faceValue, currentValue, couponPeriod, couponValue, couponCurrentValue, totalValue, maturityDate);
+            return new Bond(name, secId, sector, currency, faceValue, currentValue, couponPeriod, couponValue * (1 - this.taxValue), couponCurrentValue, totalValue, maturityDate);
         }
     }
 }

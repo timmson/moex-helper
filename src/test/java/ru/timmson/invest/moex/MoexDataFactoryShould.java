@@ -12,16 +12,13 @@ public class MoexDataFactoryShould {
 
     @Test
     void createMoexSecuritiesFromJson() {
-
         final var scanner = new Scanner(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("securities-example.json")));
         StringBuilder sb = new StringBuilder();
         while (scanner.hasNextLine()) {
             sb.append(scanner.nextLine());
         }
 
-        final var source = sb.toString();
-
-        final var result = MoexEntityFactory.createMoexSecurityResponse(source);
+        final var result = MoexEntityFactory.createMoexSecurityResponse(sb.toString());
 
         assertEquals(2, result.size());
     }

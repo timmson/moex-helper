@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class MoexSecurityResponse {
 
-    private final MoexSecurity securities;
+    private final MoexData securities;
+    private final MoexData marketdata;
 }

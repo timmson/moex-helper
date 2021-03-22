@@ -12,7 +12,7 @@ class BondShould {
     void calculateTotalValue() {
         final var bond = Bond.builder()
                 .faceValue("1000.0")
-                .currentValue("104.33")
+                .currentValue("104.33", "0")
                 .couponPeriod("91")
                 .couponValue("19.32")
                 .couponCurrentValue("8.0")
